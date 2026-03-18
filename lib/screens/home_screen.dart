@@ -87,8 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
         final productsByCategory = _selectedCategory == null
             ? productProvider.products
             : productProvider.products
-                  .where((p) => p.category == _selectedCategory)
-                  .toList();
+                .where((p) => p.category == _selectedCategory)
+                .toList();
 
         final query = _searchQuery.trim().toLowerCase();
         final products = query.isEmpty
@@ -297,11 +297,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     }, childCount: products.length),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 8,
-                          crossAxisSpacing: 8,
-                          childAspectRatio: 0.78,
-                        ),
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      childAspectRatio: 0.79,
+                    ),
                   ),
                 ),
               SliverToBoxAdapter(
