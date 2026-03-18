@@ -1,12 +1,17 @@
-String formatCurrencyVnd(int amount) {
-  final formatted = amount.abs().toString().replaceAllMapped(
-    RegExp(r'\B(?=(\d{3})+(?!\d))'),
-    (match) => '.',
+import 'package:intl/intl.dart';
+
+String formatCurrency(double value) {
+  final currency = NumberFormat.currency(
+    locale: 'vi_VN',
+    symbol: '₫',
+    decimalDigits: 0,
   );
-  final sign = amount < 0 ? '-' : '';
-  return '$sign$formatted đ';
+  return currency.format(value);
 }
 
-String formatQuantityLabel(int quantity) {
-  return 'x$quantity';
+String soldText(int count) {
+  if (count >= 1000) {
+    return 'Đã bán ${(count / 1000).toStringAsFixed(1)}k';
+  }
+  return 'Đã bán $count';
 }

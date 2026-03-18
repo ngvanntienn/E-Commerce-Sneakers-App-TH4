@@ -1,38 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'providers/cart_provider.dart';
-import 'screens/cart_screen.dart';
+import 'providers/orders_provider.dart';
+import 'providers/product_provider.dart';
+import 'screens/main_shell.dart';
 
-void main() {
-  runApp(const MainApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final cartProvider = CartProvider();
+  await cartProvider.loadFromStorage();
+
+  runApp(MyApp(cartProvider: cartProvider));
 }
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key, required this.cartProvider}) : super(key: key);
 
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  final CartProvider _cartProvider = CartProvider();
-
-  @override
-  void dispose() {
-    _cartProvider.dispose();
-    super.dispose();
-  }
+  final CartProvider cartProvider;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Sneakers Cart',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProductProvider>(
+          create: (_) => ProductProvider(),
+        ),
+        ChangeNotifierProvider<CartProvider>.value(value: cartProvider),
+        ChangeNotifierProvider<OrdersProvider>(create: (_) => OrdersProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF003049)),
+          fontFamily: 'Quicksand',
+          useMaterial3: true,
+        ),
+        title: 'TH4 - Sneakers',
+        home: const MainShell(),
       ),
-      home: CartScreen(cartProvider: _cartProvider),
     );
   }
 }
