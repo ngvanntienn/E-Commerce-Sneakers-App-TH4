@@ -11,7 +11,7 @@ import '../widgets/cart_badge_icon.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key, required this.product, this.onGoToCart})
-    : super(key: key);
+      : super(key: key);
 
   final Product product;
   final VoidCallback? onGoToCart;
@@ -200,7 +200,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Expanded(
                       child: OutlinedButton(
                         onPressed: _showVariationSheet,
-                        child: const Text('Thêm vào giỏ'),
+                        child: const Text('Thêm vào giỏ hàng'),
                       ),
                     ),
                     const SizedBox(width: 8),
