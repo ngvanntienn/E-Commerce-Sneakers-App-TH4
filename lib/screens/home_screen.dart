@@ -72,17 +72,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Consumer2<ProductProvider, CartProvider>(
       builder: (context, productProvider, cartProvider, _) {
-        final categories = productProvider.categories.isEmpty
-            ? const [
-                'Sneaker chạy bộ',
-                'Sneaker lifestyle',
-                'Jordan hot',
-                'Retro cổ điển',
-                'Giá tốt',
-                'Phối đồ',
-                'Đế êm',
-              ]
-            : productProvider.categories.take(7).toList();
+        final categories =
+            (productProvider.categories.isEmpty
+                    ? const [
+                        'Sneaker chạy bộ',
+                        'Sneaker lifestyle',
+                        'Jordan hot',
+                        'Retro cổ điển',
+                        'Giá tốt',
+                        'Phối đồ',
+                        'Đế êm',
+                      ]
+                    : productProvider.categories.take(7).toList())
+                .toList();
 
         final productsByCategory = _selectedCategory == null
             ? productProvider.products
